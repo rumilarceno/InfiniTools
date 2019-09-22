@@ -11,5 +11,6 @@ namespace DataRepository.Models
         public int StartTimeMinutes { get; set; }
         public int EndTimeMinutes { get; set; }
         public DateTime Date { get; set; }
+        public string Comments { get; set; }
     }
 }

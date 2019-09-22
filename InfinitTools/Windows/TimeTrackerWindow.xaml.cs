@@ -1,4 +1,5 @@
-﻿using InfinitTools.ViewModels;
+﻿using DataRepository.Repositories;
+using InfinitTools.ViewModels;
 using System.Windows;
 
 namespace InfinitTools.Windows
@@ -12,7 +13,7 @@ namespace InfinitTools.Windows
         public TimeTrackerWindow()
         {
             InitializeComponent();
-            timeTrackerViewModel = new TimeTrackerViewModel();
+            timeTrackerViewModel = new TimeTrackerViewModel(new TimeTrackerRepository());
             DataContext = timeTrackerViewModel;
         }
     }

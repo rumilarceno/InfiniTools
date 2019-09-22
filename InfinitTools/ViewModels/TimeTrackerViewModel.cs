@@ -1,19 +1,27 @@
-﻿using InfinitTools.Commands;
+﻿using DataRepository.Interfaces;
+using DataRepository.Models;
+using InfinitTools.Commands;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace InfinitTools.ViewModels
 {
     public class TimeTrackerViewModel : INotifyPropertyChanged
     {
-        private const string DATE_FORMAT = "MM/dd/yyyy";
+        private ITimeTrackerRepository _timeTrackerRepository = null;
+        private Employee _employee = null;
+
+        public TimeTrackerViewModel(ITimeTrackerRepository timeTrackerRepository, Employee employee)
+        {
+            _timeTrackerRepository = timeTrackerRepository;
+            _employee = employee;
+            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(employee.ID));
+        }
+       
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
@@ -72,7 +80,24 @@ namespace InfinitTools.ViewModels
 
         private void OnSubmitTaskTimeCommandHandler()
         {
-           
+            EmployeeTimeRecord employeeTimeRecord = new EmployeeTimeRecord();
+            employeeTimeRecord.Date = SelectedDate;
+            employeeTimeRecord.Comments = Comments;
+            employeeTimeRecord.EmployeeID = _employee.ID;
+
+            int startTimeValueMinutes = 0;
+            if (int.TryParse(StartTimeValue, out startTimeValueMinutes))
+            {
+                employeeTimeRecord.StartTimeMinutes = startTimeValueMinutes;
+            }
+
+            int endTimeValueMinutes = 0;
+            if (int.TryParse(StartTimeValue, out endTimeValueMinutes))
+            {
+                employeeTimeRecord.EndTimeMinutes = endTimeValueMinutes;
+            }
+
+            _timeTrackerRepository.PostEmployeeTimeRecord(employeeTimeRecord);
         }
 
         private void OnTodayCommandHandler()
@@ -142,6 +167,20 @@ namespace InfinitTools.ViewModels
             set
             {
                 _taskList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<EmployeeTimeRecord> _recordedList = null;
+        public ObservableCollection<EmployeeTimeRecord> RecordedList
+        {
+            get
+            {
+                return _recordedList = _recordedList ?? new ObservableCollection<EmployeeTimeRecord>();
+            }
+            set
+            {
+                _recordedList = value;
                 OnPropertyChanged();
             }
         }
