@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfinitTools", "InfinitTools\InfinitTools.csproj", "{A918D387-5272-48A4-98C9-E7BF37D581BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataRepository", "DataRepository\DataRepository.csproj", "{CAF718EC-82D4-4B7D-9291-616E96C424C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A918D387-5272-48A4-98C9-E7BF37D581BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A918D387-5272-48A4-98C9-E7BF37D581BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A918D387-5272-48A4-98C9-E7BF37D581BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A918D387-5272-48A4-98C9-E7BF37D581BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAF718EC-82D4-4B7D-9291-616E96C424C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAF718EC-82D4-4B7D-9291-616E96C424C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAF718EC-82D4-4B7D-9291-616E96C424C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAF718EC-82D4-4B7D-9291-616E96C424C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A822331-653F-4022-88B2-BA733F84B259}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,35 @@
+﻿<Window x:Class="InfinitTools.Windows.TimeTrackerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InfinitTools.Windows"
+        xmlns:converters="clr-namespace:InfinitTools.Converters"
+        mc:Ignorable="d"
+        Title="TimeTracker" Height="700" Width="800">
+    <Grid>
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name="taskCodeComboBox" Grid.ColumnSpan="2" IsEditable="True" ItemsSource="{Binding TaskList}" HorizontalAlignment="Left" Margin="51,298,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="startTimeTextBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="203,297,0,0" TextWrapping="Wrap" Text="{Binding StartTimeValue}" VerticalAlignment="Top" Width="120" />
+        <TextBox x:Name="endTimeTextBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="362,298,0,0" TextWrapping="Wrap" Text="{Binding EndTimeValue}" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="submitTimeButtom" Grid.ColumnSpan="2" Command="{Binding SubmitTaskTimeCommand}" Content="Submit" HorizontalAlignment="Left" Margin="536,297,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="commentsTextBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="107" Margin="51,339,0,-27" TextWrapping="Wrap" Text="{Binding Comments}" VerticalAlignment="Top" Width="560" />
+        <Label x:Name="label" Grid.ColumnSpan="2" Content="Task Name" HorizontalAlignment="Left" Margin="51,267,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy" Grid.ColumnSpan="2" Content="Start" HorizontalAlignment="Left" Margin="203,267,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy1" Grid.ColumnSpan="2" Content="End" HorizontalAlignment="Left" Margin="362,267,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.305,-1.219"/>
+        <Label x:Name="label_Copy2" Grid.ColumnSpan="2" Content="Comment" HorizontalAlignment="Left" Margin="630,339,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="dataGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="100" Margin="51,138,0,0" VerticalAlignment="Top" Width="698"/>
+        <Button x:Name="previousDateButton" Grid.ColumnSpan="2" Command="{Binding PreviousDateCommand}" Content="&lt;&lt;" HorizontalAlignment="Left" Margin="51,52,0,0" VerticalAlignment="Top" Width="49"/>
+        <Button x:Name="todayButton" Grid.ColumnSpan="2" Content="Today" HorizontalAlignment="Left" Margin="115,52,0,0" VerticalAlignment="Top" Width="75" Command="{Binding TodayCommand}"/>
+        <Button x:Name="nextDateButton" Grid.ColumnSpan="2" Command="{Binding NextDateCommand}" Content="&gt;&gt;" HorizontalAlignment="Left" Margin="213,52,0,0" VerticalAlignment="Top" Width="49"/>
+        <Label x:Name="label1" Grid.ColumnSpan="2" Content="Date" HorizontalAlignment="Left" Margin="133,10,0,0" VerticalAlignment="Top"/>
+        <DatePicker Grid.ColumnSpan="2" SelectedDate="{Binding SelectedDate}" HorizontalAlignment="Left" Margin="303,50,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
