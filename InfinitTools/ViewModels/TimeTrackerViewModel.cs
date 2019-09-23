@@ -19,7 +19,7 @@ namespace InfinitTools.ViewModels
         {
             _timeTrackerRepository = timeTrackerRepository;
             _employee = employee;
-            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(employee.ID));
+            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(employee.ID, DateTime.Now));
         }
        
         public event PropertyChangedEventHandler PropertyChanged;
@@ -100,22 +100,28 @@ namespace InfinitTools.ViewModels
             _timeTrackerRepository.PostEmployeeTimeRecord(employeeTimeRecord);
 
             RecordedList.Clear();
-            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID));
+            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID, SelectedDate));
         }
 
         private void OnTodayCommandHandler()
         {
             SelectedDate = DateTime.Today;
+            RecordedList.Clear();
+            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID, SelectedDate));
         }
 
         private void OnNextDateCommandHandler()
         {
             SelectedDate = SelectedDate.AddDays(1);
+            RecordedList.Clear();
+            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID, SelectedDate));
         }
 
         private void OnPreviousDateCommandHandler()
         {
             SelectedDate = SelectedDate.AddDays(-1);
+            RecordedList.Clear();
+            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID, SelectedDate));
         }
 
         private bool _isCalendarVisible = false;
