@@ -20,9 +20,9 @@ namespace DataRepository.Repositories
 
         public int PostEmployeeTimeRecord(EmployeeTimeRecord employeeTimeRecord)
         {
-
-            //_timeTrackerDbContext.EmployeeTimeRecord.Add()
-            return 0;
+            _timeTrackerDbContext.EmployeeTimeRecord.Add(employeeTimeRecord);
+            _timeTrackerDbContext.SaveChanges();
+            return 1;
         }
     }
 }

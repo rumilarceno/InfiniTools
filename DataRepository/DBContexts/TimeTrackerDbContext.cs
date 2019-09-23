@@ -5,7 +5,7 @@ namespace DataRepository.DBContexts
 {
     public class TimeTrackerDbContext : DbContext
     {
-        public TimeTrackerDbContext() : base("TimeTrackerDbContext")
+        public TimeTrackerDbContext() : base("InfinitToolsConnection")
         {
             Database.SetInitializer(new CreateDatabaseIfNotExists<TimeTrackerDbContext>());
         }

@@ -13,7 +13,7 @@ namespace InfinitTools.Windows
         public TimeTrackerWindow()
         {
             InitializeComponent();
-            timeTrackerViewModel = new TimeTrackerViewModel(new TimeTrackerRepository());
+            timeTrackerViewModel = new TimeTrackerViewModel(new TimeTrackerRepository(), new DataRepository.Models.Employee());
             DataContext = timeTrackerViewModel;
         }
     }

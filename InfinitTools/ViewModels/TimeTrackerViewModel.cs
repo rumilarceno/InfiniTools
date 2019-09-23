@@ -98,6 +98,9 @@ namespace InfinitTools.ViewModels
             }
 
             _timeTrackerRepository.PostEmployeeTimeRecord(employeeTimeRecord);
+
+            RecordedList.Clear();
+            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID));
         }
 
         private void OnTodayCommandHandler()
