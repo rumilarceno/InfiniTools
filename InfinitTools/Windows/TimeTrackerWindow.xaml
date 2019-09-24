@@ -9,31 +9,43 @@
         Title="TimeTracker" Height="700" Width="800">
     <Grid>
         <Grid.Resources>
-            <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+            <converters:CountToVisibilityConverter x:Key="countToVisibilityConverter" />
         </Grid.Resources>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <ComboBox x:Name="taskCodeComboBox" Grid.ColumnSpan="2" IsEditable="True" ItemsSource="{Binding TaskList}" HorizontalAlignment="Left" Margin="51,298,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="startTimeTextBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="203,297,0,0" TextWrapping="Wrap" Text="{Binding StartTimeValue}" VerticalAlignment="Top" Width="120" />
-        <TextBox x:Name="endTimeTextBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="362,298,0,0" TextWrapping="Wrap" Text="{Binding EndTimeValue}" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="submitTimeButtom" Grid.ColumnSpan="2" Command="{Binding SubmitTaskTimeCommand}" Content="Submit" HorizontalAlignment="Left" Margin="536,297,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox x:Name="commentsTextBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="107" Margin="51,339,0,-27" TextWrapping="Wrap" Text="{Binding Comments}" VerticalAlignment="Top" Width="560" />
-        <Label x:Name="label" Grid.ColumnSpan="2" Content="Task Name" HorizontalAlignment="Left" Margin="51,267,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy" Grid.ColumnSpan="2" Content="Start" HorizontalAlignment="Left" Margin="203,267,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy1" Grid.ColumnSpan="2" Content="End" HorizontalAlignment="Left" Margin="362,267,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.305,-1.219"/>
-        <Label x:Name="label_Copy2" Grid.ColumnSpan="2" Content="Comment" HorizontalAlignment="Left" Margin="630,339,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dataGrid" ItemsSource="{Binding RecordedList}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="100" Margin="51,138,0,0" VerticalAlignment="Top" Width="698">
-            <DataGrid.Columns>
-                
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button x:Name="previousDateButton" Grid.ColumnSpan="2" Command="{Binding PreviousDateCommand}" Content="&lt;&lt;" HorizontalAlignment="Left" Margin="51,52,0,0" VerticalAlignment="Top" Width="49"/>
-        <Button x:Name="todayButton" Grid.ColumnSpan="2" Content="Today" HorizontalAlignment="Left" Margin="115,52,0,0" VerticalAlignment="Top" Width="75" Command="{Binding TodayCommand}"/>
-        <Button x:Name="nextDateButton" Grid.ColumnSpan="2" Command="{Binding NextDateCommand}" Content="&gt;&gt;" HorizontalAlignment="Left" Margin="213,52,0,0" VerticalAlignment="Top" Width="49"/>
-        <Label x:Name="label1" Grid.ColumnSpan="2" Content="Date" HorizontalAlignment="Left" Margin="133,10,0,0" VerticalAlignment="Top"/>
-        <DatePicker Grid.ColumnSpan="2" SelectedDate="{Binding SelectedDate}" HorizontalAlignment="Left" Margin="303,50,0,0" VerticalAlignment="Top"/>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="300"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="2" Width="800">
+            <ComboBox x:Name="taskCodeComboBox" IsEditable="True" ItemsSource="{Binding TaskList}" Text="{Binding TaskName}" HorizontalAlignment="Left" Margin="51,98,0,0" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="startTimeTextBox" HorizontalAlignment="Left" Height="23" Margin="192,97,0,0" TextWrapping="Wrap" Text="{Binding StartTimeValue}" VerticalAlignment="Top" Width="120" />
+            <TextBox x:Name="endTimeTextBox" HorizontalAlignment="Left" Height="23" Margin="362,97,0,0" TextWrapping="Wrap" Text="{Binding EndTimeValue}" VerticalAlignment="Top" Width="120"/>
+            <Button x:Name="submitTimeButtom" Grid.ColumnSpan="2" Command="{Binding SubmitTaskTimeCommand}" Content="Submit" HorizontalAlignment="Left" Margin="529,97,0,0" VerticalAlignment="Top" Width="75"/>
+            <TextBox x:Name="commentsTextBox" HorizontalAlignment="Left" Height="107" Margin="51,141,0,0" TextWrapping="Wrap" Text="{Binding Comments}" VerticalAlignment="Top" Width="560" />
+            <Label x:Name="label" Content="Task Name" HorizontalAlignment="Left" Margin="51,56,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy" Content="Start" HorizontalAlignment="Left" Margin="192,56,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy1" Content="End" HorizontalAlignment="Left" Margin="362,56,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.305,-1.219"/>
+            <Label x:Name="label_Copy2" Content="Comments" HorizontalAlignment="Left" Margin="640,141,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <Grid Height="200" Grid.Row="1">
+            <DataGrid x:Name="dataGrid" Visibility="{Binding IsDataGridVisible, Converter={StaticResource countToVisibilityConverter}}" IsReadOnly="True" 
+                      ItemsSource="{Binding RecordedList}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="200" 
+                      Margin="46,0,0,0" VerticalAlignment="Top" Width="698">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Task" Width="*" Binding="{Binding Task}"/>
+                    <DataGridTextColumn Header="Start" Width="0.5*" Binding="{Binding StartTimeRec}"/>
+                    <DataGridTextColumn Header="End" Width="0.5*" Binding="{Binding EndTimeRec}"/>
+                    <DataGridTextColumn Header="Comments" Width="2*" Binding="{Binding Comments}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="0">
+            <Button x:Name="previousDateButton" Grid.ColumnSpan="2" Command="{Binding PreviousDateCommand}" Content="&lt;&lt;" HorizontalAlignment="Left" Margin="51,52,0,0" VerticalAlignment="Top" Width="49"/>
+            <Button x:Name="todayButton" Grid.ColumnSpan="2" Content="Today" HorizontalAlignment="Left" Margin="115,52,0,0" VerticalAlignment="Top" Width="75" Command="{Binding TodayCommand}"/>
+            <Button x:Name="nextDateButton" Command="{Binding NextDateCommand}" Content="&gt;&gt;" HorizontalAlignment="Left" Margin="207,51,0,0" VerticalAlignment="Top" Width="49"/>
+            <Label x:Name="label1" Grid.ColumnSpan="2" Content="Date" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+            <DatePicker Grid.ColumnSpan="2" SelectedDate="{Binding SelectedDate}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,49,0,0"/>
+        </Grid>
     </Grid>
 </Window>

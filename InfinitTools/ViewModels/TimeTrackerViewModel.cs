@@ -1,7 +1,9 @@
 ﻿using DataRepository.Interfaces;
 using DataRepository.Models;
 using InfinitTools.Commands;
+using InfinitTools.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -12,6 +14,8 @@ namespace InfinitTools.ViewModels
 {
     public class TimeTrackerViewModel : INotifyPropertyChanged
     {
+        private const int HOUR_MINUTES = 60;
+        private const int HALF_DAY_MINUTES = 1200;
         private ITimeTrackerRepository _timeTrackerRepository = null;
         private Employee _employee = null;
 
@@ -19,7 +23,8 @@ namespace InfinitTools.ViewModels
         {
             _timeTrackerRepository = timeTrackerRepository;
             _employee = employee;
-            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(employee.ID, DateTime.Now));
+            RecordedList = ConvertRecords(_timeTrackerRepository.GetEmployeeTimeRecords(employee.ID, DateTime.Now));
+            TaskList = new ObservableCollection<string>(_timeTrackerRepository.GetProjectTasks(_employee.Project.ID).Select(pt => pt.Name));
         }
        
         public event PropertyChangedEventHandler PropertyChanged;
@@ -73,6 +78,14 @@ namespace InfinitTools.ViewModels
             }
         }
 
+        public int RecordTimeCount
+        {
+            get
+            {
+                return RecordedList.Count;
+            }
+        }
+
         private void OnOpenCalendarCommandHandler()
         {
             IsCalendarVisible = true;   
@@ -84,6 +97,26 @@ namespace InfinitTools.ViewModels
             employeeTimeRecord.Date = SelectedDate;
             employeeTimeRecord.Comments = Comments;
             employeeTimeRecord.EmployeeID = _employee.ID;
+            employeeTimeRecord.Task = TaskName;
+
+            var projectTasks = _timeTrackerRepository.GetProjectTasks(_employee.Project.ID);
+
+            bool containsSelectedTask = false;
+            foreach (var item in projectTasks)
+            {
+                if (item.Name.Equals(TaskName))
+                {
+                    containsSelectedTask = true;
+                    break;
+                }
+            }
+            if (!containsSelectedTask)
+            {
+                ProjectTask projectTask = new ProjectTask();
+                projectTask.Name = TaskName;
+                projectTask.Project = _timeTrackerRepository.GetProject(_employee.Project.ID);
+                _timeTrackerRepository.PostProjectTasks(projectTask);
+            }
 
             int startTimeValueMinutes = 0;
             if (int.TryParse(StartTimeValue, out startTimeValueMinutes))
@@ -92,7 +125,7 @@ namespace InfinitTools.ViewModels
             }
 
             int endTimeValueMinutes = 0;
-            if (int.TryParse(StartTimeValue, out endTimeValueMinutes))
+            if (int.TryParse(EndTimeValue, out endTimeValueMinutes))
             {
                 employeeTimeRecord.EndTimeMinutes = endTimeValueMinutes;
             }
@@ -100,28 +133,30 @@ namespace InfinitTools.ViewModels
             _timeTrackerRepository.PostEmployeeTimeRecord(employeeTimeRecord);
 
             RecordedList.Clear();
-            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID, SelectedDate));
+            TaskList.Clear();
+            RecordedList = ConvertRecords(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID, SelectedDate));
+            TaskList = new ObservableCollection<string>(_timeTrackerRepository.GetProjectTasks(_employee.Project.ID).Select(pt => pt.Name));
         }
 
         private void OnTodayCommandHandler()
         {
             SelectedDate = DateTime.Today;
             RecordedList.Clear();
-            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID, SelectedDate));
+            RecordedList = ConvertRecords(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID, SelectedDate));
         }
 
         private void OnNextDateCommandHandler()
         {
             SelectedDate = SelectedDate.AddDays(1);
             RecordedList.Clear();
-            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID, SelectedDate));
+            RecordedList = ConvertRecords(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID, SelectedDate));
         }
 
         private void OnPreviousDateCommandHandler()
         {
             SelectedDate = SelectedDate.AddDays(-1);
             RecordedList.Clear();
-            RecordedList = new ObservableCollection<EmployeeTimeRecord>(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID, SelectedDate));
+            RecordedList = ConvertRecords(_timeTrackerRepository.GetEmployeeTimeRecords(_employee.ID, SelectedDate));
         }
 
         private bool _isCalendarVisible = false;
@@ -166,6 +201,20 @@ namespace InfinitTools.ViewModels
             }
         }
 
+        private string _taskName = string.Empty;
+        public string TaskName
+        {
+            get
+            {
+                return _taskName;
+            }
+            set
+            {
+                _taskName = value;
+                OnPropertyChanged();
+            }
+        }
+
         private ObservableCollection<string> _taskList = null;
         public ObservableCollection<string> TaskList
         {
@@ -180,12 +229,12 @@ namespace InfinitTools.ViewModels
             }
         }
 
-        private ObservableCollection<EmployeeTimeRecord> _recordedList = null;
-        public ObservableCollection<EmployeeTimeRecord> RecordedList
+        private ObservableCollection<TimeRecord> _recordedList = null;
+        public ObservableCollection<TimeRecord> RecordedList
         {
             get
             {
-                return _recordedList = _recordedList ?? new ObservableCollection<EmployeeTimeRecord>();
+                return _recordedList = _recordedList ?? new ObservableCollection<TimeRecord>();
             }
             set
             {
@@ -225,5 +274,54 @@ namespace InfinitTools.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private ObservableCollection<TimeRecord> ConvertRecords(List<EmployeeTimeRecord> employeeTimeRecords)
+        {
+            ObservableCollection<TimeRecord> timeRecords = new ObservableCollection<TimeRecord>();
+            foreach (var record in employeeTimeRecords)
+                timeRecords.Add(ExtractTimeRecord(record));
+            return timeRecords;
+        }
+
+        private TimeRecord ExtractTimeRecord(EmployeeTimeRecord employeeTimeRecord)
+        {
+            TimeRecord tr = new TimeRecord();
+            tr.Comments = employeeTimeRecord.Comments;
+
+            tr.StartTimeRec = GetTimeString(employeeTimeRecord.StartTimeMinutes);
+            tr.EndTimeRec = GetTimeString(employeeTimeRecord.EndTimeMinutes);
+            tr.Task = employeeTimeRecord.Task;
+            return tr;
+        }
+
+        private string GetTimeString(int minutes)
+        {
+            var isPM = (decimal)((double)minutes / (double)HALF_DAY_MINUTES) > 1;
+
+            int hour = 0;
+            int remainingMinutes = 0;
+            if (isPM)
+            {
+                var minutesPastNoon = minutes - HALF_DAY_MINUTES;
+                hour = (int)Math.Round((double)(minutesPastNoon / 100));
+            }
+            else
+            {
+                hour = (int)Math.Round((double)(minutes / 100));
+            }
+            remainingMinutes = minutes % 100;
+
+            var meriDian = isPM ? "PM" : "AM";
+            return $"{hour.ToString().PadLeft(2)}:{remainingMinutes.ToString("00")} {meriDian}";
+        }
+
+        //private int ParseTimeToMinutes(string dayInMinutes)
+        //{
+        //    int startTimeValueMinutes = 0;
+        //    if (int.TryParse(dayInMinutes, out startTimeValueMinutes))
+        //    {
+        //        startTimeValueMinutes / 60;
+        //    }
+        //}
     }
 }

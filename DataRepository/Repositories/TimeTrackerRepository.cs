@@ -21,9 +21,30 @@ namespace DataRepository.Repositories
                                                            .ToList();
         }
 
+        public Project GetProject(int projectId)
+        {
+            return _timeTrackerDbContext.Project.Where(p => p.ID == projectId).FirstOrDefault();
+        }
+
+        public List<ProjectTask> GetProjectTasks(int projectId)
+        {
+            return _timeTrackerDbContext.ProjectTasks.Where(pt => pt.Project.ID == projectId).ToList();
+        }
+
         public int PostEmployeeTimeRecord(EmployeeTimeRecord employeeTimeRecord)
         {
+            var count = _timeTrackerDbContext.EmployeeTimeRecord.Count();
+            employeeTimeRecord.ID = ++count;
             _timeTrackerDbContext.EmployeeTimeRecord.Add(employeeTimeRecord);
+            _timeTrackerDbContext.SaveChanges();
+            return 1;
+        }
+
+        public int PostProjectTasks(ProjectTask projectTask)
+        {
+            var count = _timeTrackerDbContext.ProjectTasks.Count();
+            projectTask.ID = ++count;
+            _timeTrackerDbContext.ProjectTasks.Add(projectTask);
             _timeTrackerDbContext.SaveChanges();
             return 1;
         }

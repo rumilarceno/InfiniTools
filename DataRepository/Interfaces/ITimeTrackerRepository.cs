@@ -8,5 +8,8 @@ namespace DataRepository.Interfaces
     {
         List<EmployeeTimeRecord> GetEmployeeTimeRecords(int employeeID, DateTime date);
         int PostEmployeeTimeRecord(EmployeeTimeRecord employeeTimeRecord);
+        int PostProjectTasks(ProjectTask projectTask);
+        List<ProjectTask> GetProjectTasks(int projectId);
+        Project GetProject(int projectId);
     }
 }

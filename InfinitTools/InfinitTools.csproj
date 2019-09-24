@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,9 +66,18 @@
     </ApplicationDefinition>
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\CountToVisibilityConverter.cs" />
     <Compile Include="Models\DirectoryObject.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Folder.cs" />
+    <Compile Include="Models\TimeRecord.cs" />
+    <Compile Include="UserControls\TimeTrackerAutomaticUserInput.xaml.cs">
+      <DependentUpon>TimeTrackerAutomaticUserInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TimeTrackerManualTImeInput.xaml.cs">
+      <DependentUpon>TimeTrackerManualTImeInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Validations\HourFormatValidation.cs" />
     <Compile Include="ViewModels\FilenameCopierViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\TimeTrackerViewModel.cs" />
@@ -77,6 +87,14 @@
     <Compile Include="Windows\TimeTrackerWindow.xaml.cs">
       <DependentUpon>TimeTrackerWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="UserControls\TimeTrackerAutomaticUserInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TimeTrackerManualTImeInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\FileNameCopier.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -131,5 +149,6 @@
       <Name>DataRepository</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
