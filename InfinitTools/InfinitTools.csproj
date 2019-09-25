@@ -70,15 +70,26 @@
     <Compile Include="Models\DirectoryObject.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Folder.cs" />
+    <Compile Include="Models\GuestRecord.cs" />
     <Compile Include="Models\TimeRecord.cs" />
-    <Compile Include="UserControls\TimeTrackerAutomaticUserInput.xaml.cs">
-      <DependentUpon>TimeTrackerAutomaticUserInput.xaml</DependentUpon>
+    <Compile Include="Pages\PortalPage.xaml.cs">
+      <DependentUpon>PortalPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\TimeTrackerManualTImeInput.xaml.cs">
-      <DependentUpon>TimeTrackerManualTImeInput.xaml</DependentUpon>
+    <Compile Include="Pages\ToolsPage.xaml.cs">
+      <DependentUpon>ToolsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FileNameCopierControl.xaml.cs">
+      <DependentUpon>FileNameCopierControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GuestTrackerControl.xaml.cs">
+      <DependentUpon>GuestTrackerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TimeTrackerControl.xaml.cs">
+      <DependentUpon>TimeTrackerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Validations\HourFormatValidation.cs" />
     <Compile Include="ViewModels\FilenameCopierViewModel.cs" />
+    <Compile Include="ViewModels\GuestTrackerViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\TimeTrackerViewModel.cs" />
     <Compile Include="Windows\FileNameCopier.xaml.cs">
@@ -87,11 +98,23 @@
     <Compile Include="Windows\TimeTrackerWindow.xaml.cs">
       <DependentUpon>TimeTrackerWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="UserControls\TimeTrackerAutomaticUserInput.xaml">
+    <Page Include="Pages\PortalPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\TimeTrackerManualTImeInput.xaml">
+    <Page Include="Pages\ToolsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\FileNameCopierControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\GuestTrackerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TimeTrackerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
