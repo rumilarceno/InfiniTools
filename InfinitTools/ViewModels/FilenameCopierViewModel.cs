@@ -30,7 +30,7 @@ namespace InfinitTools.ViewModels
             ShowDialogMessage?.Invoke(message);
         }
 
-        public bool IncludeChildFolder { get; set; }
+        public bool IncludeChildFolder { get; set; } = true;
 
         private ObservableCollection<string> _extensionList = null;
         public ObservableCollection<string> ExtensionList
@@ -74,6 +74,34 @@ namespace InfinitTools.ViewModels
             set
             {
                 _copied = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _copyFileName = true;
+        public bool CopyFileName
+        {
+            get
+            {
+                return _copyFileName;
+            }
+            set
+            {
+                _copyFileName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _copyExtension = false;
+        public bool CopyExtension
+        {
+            get
+            {
+                return _copyExtension;
+            }
+            set
+            {
+                _copyExtension = value;
                 OnPropertyChanged();
             }
         }
@@ -160,6 +188,17 @@ namespace InfinitTools.ViewModels
                     foreach (var file in files)
                     {
                         var filename = Path.GetFileNameWithoutExtension(file);
+                        var extension = Path.GetExtension(file);
+
+                        if (CopyFileName && CopyExtension)
+                        {
+                            filename += extension;
+                        }
+                        else if (CopyExtension)
+                        {
+                            filename = extension.Replace(".", string.Empty);
+                        }
+
                         sb.Append(filename);
                         sb.Append(Environment.NewLine);
                     }
@@ -174,7 +213,7 @@ namespace InfinitTools.ViewModels
             }
             else
             {
-                OnShowDialogMessage("Please select a folder.");
+                OnShowDialogMessage("Please select a folder or add extensions.");
             }
         }
     }
