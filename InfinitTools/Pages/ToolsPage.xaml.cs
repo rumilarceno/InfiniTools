@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace InfinitTools.UserControls
+namespace InfinitTools.Pages
 {
     /// <summary>
-    /// Interaction logic for TimeTrackerAutomaticUserInput.xaml
+    /// Interaction logic for ToolsPage.xaml
     /// </summary>
-    public partial class TimeTrackerAutomaticUserInput : UserControl
+    public partial class ToolsPage : Page
     {
-        public TimeTrackerAutomaticUserInput()
+        public ToolsPage()
         {
             InitializeComponent();
         }

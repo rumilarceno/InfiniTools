@@ -16,13 +16,18 @@ using System.Windows.Shapes;
 namespace InfinitTools.UserControls
 {
     /// <summary>
-    /// Interaction logic for TimeTrackerManualTImeInput.xaml
+    /// Interaction logic for TimeTrackerControl.xaml
     /// </summary>
-    public partial class TimeTrackerManualTImeInput : UserControl
+    public partial class TimeTrackerControl : UserControl
     {
-        public TimeTrackerManualTImeInput()
+        public TimeTrackerControl()
         {
             InitializeComponent();
+        }
+
+        private void SubmitTimeButtom_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

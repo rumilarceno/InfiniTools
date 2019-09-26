@@ -5,17 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InfinitTools"
         mc:Ignorable="d"
-        Title="InfiniTools" Height="600" Width="800">
+        Title="InfiniTools" Height="700" Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="283*"/>
-            <ColumnDefinition Width="172*"/>
-            <ColumnDefinition Width="337*"/>
-        </Grid.ColumnDefinitions>
-        <Button x:Name="button" Command="{Binding OpenTimeTrackerCommand}" Content="TimeTracker" HorizontalAlignment="Left" Margin="115,303,0,0" VerticalAlignment="Top" Width="255" Height="180" Grid.ColumnSpan="2" Grid.Column="1" FontSize="30"/>
-        <Button x:Name="button1" Command="{Binding OpenFilenameCopierCommand}" Content="Filename Copier" HorizontalAlignment="Left" Margin="60,303,0,0" VerticalAlignment="Top" Width="248" Height="180" Grid.ColumnSpan="2" FontSize="30"/>
-        <Label x:Name="label" Content="InfiniTools" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="77,69,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="102" Width="576" FontSize="50" />
-
+        <Frame Source="Pages/PortalPage.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
