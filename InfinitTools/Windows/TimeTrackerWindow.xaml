@@ -27,7 +27,7 @@
             <Label x:Name="label_Copy" Content="Start" HorizontalAlignment="Left" Margin="192,56,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy1" Content="End" HorizontalAlignment="Left" Margin="446,56,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.305,-1.219"/>
             <Label x:Name="label_Copy2" Content="Comments" HorizontalAlignment="Left" Margin="640,141,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="button" Content="{Binding AutoStartText}" Command="{Binding AutoStartCommand}" HorizontalAlignment="Left" Margin="340,98,0,0" VerticalAlignment="Top" Width="75"/>
+            <Button x:Name="button" Content="{Binding AutoStartText}" Command="{Binding AutoStartCommand}" HorizontalAlignment="Left" Margin="340,97,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
         </Grid>
         <Grid Height="200" Grid.Row="1">
             <DataGrid x:Name="dataGrid" Visibility="{Binding IsDataGridVisible, Converter={StaticResource countToVisibilityConverter}}" IsReadOnly="True" 

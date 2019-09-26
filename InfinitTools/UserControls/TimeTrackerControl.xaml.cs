@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using DataRepository.Models;
+using DataRepository.Repositories;
+using InfinitTools.ViewModels;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace InfinitTools.UserControls
 {
@@ -20,14 +10,17 @@ namespace InfinitTools.UserControls
     /// </summary>
     public partial class TimeTrackerControl : UserControl
     {
+        private TimeTrackerViewModel timeTrackerViewModel;
         public TimeTrackerControl()
         {
             InitializeComponent();
-        }
+            Employee emp = new Employee();
+            emp.ID = 4;
+            emp.Project = new Project();
+            emp.Project.ID = 1;
 
-        private void SubmitTimeButtom_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+            timeTrackerViewModel = new TimeTrackerViewModel(new TimeTrackerRepository(), emp);
+            DataContext = timeTrackerViewModel;
+        }        
     }
 }
