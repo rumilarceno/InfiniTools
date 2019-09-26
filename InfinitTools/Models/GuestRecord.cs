@@ -8,5 +8,6 @@
         public string Purpose { get; set; }
         public string TimeIn { get; set; }
         public string TimeOut { get; set; }
+        public string IdNumber { get; set; }
     }
 }

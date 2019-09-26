@@ -67,6 +67,7 @@
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\CountToVisibilityConverter.cs" />
+    <Compile Include="Converters\ExtensionToBooleanConverter.cs" />
     <Compile Include="Models\DirectoryObject.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Folder.cs" />

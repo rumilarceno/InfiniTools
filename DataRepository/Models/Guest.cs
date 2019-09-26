@@ -16,5 +16,6 @@ namespace DataRepository.Models
         public string Purpose { get; set; }
         public DateTime TimeIn { get; set; }
         public DateTime? TimeOut { get; set; }
+        public string IdNumber { get; set; }
     }
 }

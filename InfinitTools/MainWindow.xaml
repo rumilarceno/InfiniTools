@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InfinitTools"
         mc:Ignorable="d"
-        Title="InfiniTools" Height="700" Width="800"
+        Title="InfiniTools" Height="700" Width="1000"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
 

@@ -364,14 +364,5 @@ namespace InfinitTools.ViewModels
 
             return hoursStr + remainingMinutesStr;
         }
-
-        //private int ParseTimeToMinutes(string dayInMinutes)
-        //{
-        //    int startTimeValueMinutes = 0;
-        //    if (int.TryParse(dayInMinutes, out startTimeValueMinutes))
-        //    {
-        //        startTimeValueMinutes / 60;
-        //    }
-        //}
     }
 }

@@ -6,24 +6,25 @@
       xmlns:local="clr-namespace:InfinitTools.Pages"
       xmlns:localControls="clr-namespace:InfinitTools.UserControls"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="800"
+      d:DesignHeight="700" d:DesignWidth="1000"
       Title="ToolsPage">
 
     <Grid>
-        <TabControl x:Name="tabControl" TabStripPlacement="Left" HorizontalAlignment="Left"  Height="600" Margin="0,50,0,0" VerticalAlignment="Top" Width="780" Grid.ColumnSpan="3">
-            <TabItem Header="Filename Copier" Height="50" Width="100">
+        <TabControl x:Name="tabControl" TabStripPlacement="Left" HorizontalAlignment="Left"  Height="600" 
+                    Margin="0,50,0,0" VerticalAlignment="Top" Width="1000" Grid.ColumnSpan="3">
+            <TabItem Header="Filename Copier" Height="75" Width="150" FontSize="18">
                 <Grid>
-                    <localControls:FileNameCopierControl />
+                    <localControls:FileNameCopierControl FontSize="16"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Time Tracker" Height="50" Width="100">
+            <TabItem Header="Time Tracker" Height="75" Width="150" FontSize="18">
                 <Grid>
-                    <localControls:TimeTrackerControl />
+                    <localControls:TimeTrackerControl FontSize="16" Margin="67,0,-67,0" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Guest Tracker" Height="50" Width="100">
+            <TabItem Header="Guest Tracker" Height="75" Width="150" FontSize="18">
                 <Grid>
-                    <localControls:GuestTrackerControl />
+                    <localControls:GuestTrackerControl FontSize="16" />
                 </Grid>
             </TabItem>
         </TabControl>

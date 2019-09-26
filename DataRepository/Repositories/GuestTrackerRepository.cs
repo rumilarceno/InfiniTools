@@ -1,6 +1,7 @@
 ﻿using DataRepository.DBContexts;
 using DataRepository.Interfaces;
 using DataRepository.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,9 +19,11 @@ namespace DataRepository.Repositories
             return _dbContext.Guests.Where(g => g.ID == guestId).FirstOrDefault();
         }
 
-        public List<Guest> GetGuests()
+        public List<Guest> GetGuests(DateTime dateTime)
         {
-            return _dbContext.Guests.ToList();
+            return _dbContext.Guests.Where(g => g.TimeIn.Year.Equals(dateTime.Year) &&
+                                                g.TimeIn.Month.Equals(dateTime.Month) &&
+                                                g.TimeIn.Day.Equals(dateTime.Day)).ToList();
         }
 
         public int PostGuest(Guest guest)

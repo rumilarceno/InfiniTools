@@ -30,6 +30,20 @@ namespace InfinitTools.ViewModels
             ShowDialogMessage?.Invoke(message);
         }
 
+        private string _extensions = string.Empty;
+        public string Extensions
+        {
+            get
+            {
+                return _extensions; 
+            }
+            set
+            {
+                _extensions = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool IncludeChildFolder { get; set; } = true;
 
         private ObservableCollection<string> _extensionList = null;
@@ -77,7 +91,43 @@ namespace InfinitTools.ViewModels
                 OnPropertyChanged();
             }
         }
-      
+
+        private int _selectedExtensionOptionIndex = 0;
+        public int SelectedExtensionOptionIndex
+        {
+            get
+            {
+                return _selectedExtensionOptionIndex;
+            }
+            set
+            {
+                _selectedExtensionOptionIndex = value;
+                if (_selectedExtensionOptionIndex == 0)
+                {
+                    Extensions = string.Empty;
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        private List<string> _extensionOptions = new List<string>()
+        {
+            "All",
+            "Specific"
+        };
+        public List<string> ExtensionOptions
+        {
+            get
+            {
+                return _extensionOptions;
+            }
+            set
+            {
+                _extensionOptions = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _copyFileName = true;
         public bool CopyFileName
         {
@@ -170,13 +220,19 @@ namespace InfinitTools.ViewModels
         private void OnCopyDocumentFilenames()
         {
             var folderPath = FolderPath;
-            if (!String.IsNullOrEmpty(folderPath) && ExtensionList.Count > 0)
+            if (!String.IsNullOrEmpty(folderPath))
             {
+                if (SelectedExtensionOptionIndex == 1 && String.IsNullOrEmpty(Extensions))
+                {
+                    OnShowDialogMessage("Please type the extensions.");
+                    return;
+                }
+
                 List<string> extensions = new List<string>();
 
-                foreach (var item in ExtensionList)
+                if (SelectedExtensionOptionIndex == 1 && !String.IsNullOrEmpty(Extensions))
                 {
-                    extensions.Add(item.ToString());
+                    extensions = Extensions.Split(',').ToList();
                 }
 
                 Folder folder = new Folder(folderPath);
@@ -215,7 +271,7 @@ namespace InfinitTools.ViewModels
             }
             else
             {
-                OnShowDialogMessage("Please select a folder or add extensions.");
+                OnShowDialogMessage("Please select a folder");
             }
         }
     }

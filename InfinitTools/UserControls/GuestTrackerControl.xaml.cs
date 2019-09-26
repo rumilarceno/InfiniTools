@@ -29,5 +29,10 @@ namespace InfinitTools.UserControls
             guestTrackerViewModel = new GuestTrackerViewModel(new GuestTrackerRepository());
             DataContext = guestTrackerViewModel;
         }
+
+        private void IdNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            guestTrackerViewModel.IdNumber = ((TextBlock)sender).Text;
+        }
     }
 }

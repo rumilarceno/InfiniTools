@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -19,8 +20,12 @@ namespace InfinitTools.Models
 
         private List<string> GetDocumentFileNames(List<string> docExtensions)
         {
-            return Directory.EnumerateFiles(FullDirectoryName, "*.*", SearchOption.TopDirectoryOnly)
-                                     .Where(s => docExtensions.Any(a => s.EndsWith(a))).ToList();
+            var getSpecificExt = docExtensions != null && docExtensions.Count > 0;
+            var allFiles = Directory.EnumerateFiles(FullDirectoryName, "*.*", SearchOption.TopDirectoryOnly);
+            if (getSpecificExt)
+                allFiles = allFiles.Where(s => docExtensions.Any(a => s.EndsWith(a)));
+
+            return allFiles.ToList();
         }
 
         public List<string> GetAllDocumentFileNames(List<string> docExtensions, bool getSubfolderDocFileNames)

@@ -4,24 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:InfinitTools.UserControls"
+             xmlns:converters="clr-namespace:InfinitTools.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.Resources>
             <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+            <converters:ExtensionToBooleanConverter x:Key="extensionToBooleanConverter" />
+            
         </Grid.Resources>
         <Grid>
-            <Button x:Name="browseButton" Content="Browse" HorizontalAlignment="Left" Margin="478,213,0,0" VerticalAlignment="Top" Width="75" Command="{Binding BrowseFolderCommand}"/>
-            <TextBox x:Name="folderPathTextBox" HorizontalAlignment="Left" Height="20" Margin="111,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="314" Text="{Binding FolderPath}"/>
-            <Button x:Name="copyButton" Content="Copy" HorizontalAlignment="Left" Margin="478,271,0,0" VerticalAlignment="Top" Width="75" Height="51" Command="{Binding CopyCommand}"/>
-            <Label x:Name="copiedLabel" Content="Copied" Visibility="{Binding Copied, Converter={StaticResource booleanToVisibilityConverter}}" HorizontalAlignment="Left" Margin="350,296,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.232,0.315"/>
-            <ComboBox x:Name="extensionsComboBox" HorizontalAlignment="Left" Margin="111,136,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" ItemsSource="{Binding ExtensionList}" Text="{Binding ComboBoxText}"/>
-            <Button x:Name="addFileExtensionButton" Content="Add" HorizontalAlignment="Left" Margin="257,136,0,0" VerticalAlignment="Top" Width="75"  Command="{Binding AddExtensionCommand}"/>
-            <Button x:Name="deleteFileExtensionButton" Content="Delete" HorizontalAlignment="Left" Margin="350,136,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RemoveExtensionCommand}"/>
-            <Label x:Name="label" Content="Extension list" HorizontalAlignment="Left" Margin="111,105,0,0" VerticalAlignment="Top"/>
-            <CheckBox x:Name="includeChildFoldersCheckBox" Content="Include child folder documents" HorizontalAlignment="Left" Margin="111,76,0,0" VerticalAlignment="Top" IsChecked="{Binding IncludeChildFolder}"/>
-            <CheckBox x:Name="checkBox" Content="Copy Filename" IsChecked="{Binding CopyFileName}" HorizontalAlignment="Left" Margin="140,271,0,0" VerticalAlignment="Top"/>
-            <CheckBox x:Name="checkBox1" Content="Copy Extension" IsChecked="{Binding CopyExtension}" HorizontalAlignment="Left" Margin="140,303,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="browseButton" Content="Browse..." HorizontalAlignment="Left" Margin="411,313,0,0" VerticalAlignment="Top" Width="90" Command="{Binding BrowseFolderCommand}" RenderTransformOrigin="-1.141,3.505" Height="44"/>
+            <TextBox x:Name="folderPathTextBox" HorizontalAlignment="Left" Height="25" Margin="259,271,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" Text="{Binding FolderPath}"/>
+            <Button x:Name="copyButton" Content="Copy" HorizontalAlignment="Left" Margin="544,310,0,0" VerticalAlignment="Top" Width="75" Height="47" Command="{Binding CopyCommand}"/>
+            <Label x:Name="copiedLabel" Content="Copied" Visibility="{Binding Copied, Converter={StaticResource booleanToVisibilityConverter}}" HorizontalAlignment="Left" Margin="646,331,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.232,0.315"/>
+            <ComboBox x:Name="extensionsComboBox" HorizontalAlignment="Left" Margin="259,213,0,0" VerticalAlignment="Top" Width="120" IsEditable="True" ItemsSource="{Binding ExtensionOptions}" SelectedIndex="{Binding SelectedExtensionOptionIndex}" Height="25"/>
+            <Label x:Name="label" Content="Extensions" HorizontalAlignment="Left" Margin="150,213,0,0" VerticalAlignment="Top"/>
+            <CheckBox x:Name="includeChildFoldersCheckBox" Content="Include child folder documents" HorizontalAlignment="Left" Margin="259,83,0,0" VerticalAlignment="Top" IsChecked="{Binding IncludeChildFolder}" />
+            <CheckBox x:Name="checkBox" Content="Copy Filename" IsChecked="{Binding CopyFileName}" HorizontalAlignment="Left" Margin="259,126,0,0" VerticalAlignment="Top"/>
+            <CheckBox x:Name="checkBox1" Content="Copy Extension" IsChecked="{Binding CopyExtension}" HorizontalAlignment="Left" Margin="259,166,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="26" Margin="398,212,0,0" TextWrapping="Wrap" IsEnabled="{Binding SelectedExtensionOptionIndex}" Text="{Binding Extensions}" VerticalAlignment="Top" Width="221"/>
+            <Label x:Name="label1" Content="Folder" HorizontalAlignment="Left" Margin="150,269,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label2" Content="ex: pdf,msg" HorizontalAlignment="Left" Margin="624,213,0,0" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </UserControl>

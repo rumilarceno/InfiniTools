@@ -5,45 +5,63 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:InfinitTools.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="700">
+             d:DesignHeight="700" d:DesignWidth="900">
     <Grid>
         <TabControl x:Name="tabControl" TabStripPlacement="Bottom" HorizontalAlignment="Left" Height="500" 
-                    Margin="0,0,0,0" VerticalAlignment="Top" Width="690">
+                    Margin="0,0,0,0" VerticalAlignment="Top" Width="900">
             <TabItem Header="Guest Demo Page">
                 <Grid>
-                    <TextBox x:Name="textBox" HorizontalAlignment="Left"  Height="23" Margin="172,94,0,0" TextWrapping="Wrap" Text="{Binding FirstName}" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="172,144,0,0" TextWrapping="Wrap" Text="{Binding LastName}" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="23" Margin="172,193,0,0" TextWrapping="Wrap" Text="{Binding Contact}" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" Margin="172,236,0,0" TextWrapping="Wrap" Text="{Binding Purpose}" VerticalAlignment="Top" Width="120"/>
-                    <Label x:Name="label" Content="Firstname" HorizontalAlignment="Left" Margin="76,94,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label1" Content="Lastname" HorizontalAlignment="Left" Margin="76,144,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label2" Content="Contact" HorizontalAlignment="Left" Margin="76,193,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label3" Content="Purpose" HorizontalAlignment="Left" Margin="76,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,-0.068"/>
-                    <Button x:Name="button" Content="Submit" HorizontalAlignment="Left" Margin="217,305,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SubmitCommand}"/>
+                    <TextBox x:Name="textBox" HorizontalAlignment="Left"  Height="23" Margin="398,94,0,0" TextWrapping="Wrap" Text="{Binding FirstName}" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="398,144,0,0" TextWrapping="Wrap" Text="{Binding LastName}" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="23" Margin="398,195,0,0" TextWrapping="Wrap" Text="{Binding Contact}" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" Margin="398,245,0,0" TextWrapping="Wrap" Text="{Binding Purpose}" VerticalAlignment="Top" Width="120"/>
+                    <Label x:Name="label" Content="Firstname" HorizontalAlignment="Left" Margin="260,91,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label1" Content="Lastname" HorizontalAlignment="Left" Margin="260,141,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label2" Content="Contact Person" HorizontalAlignment="Left" Margin="260,193,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label3" Content="Purpose" HorizontalAlignment="Left" Margin="260,242,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.485,-0.068"/>
+                    <Button x:Name="button" Content="Submit" HorizontalAlignment="Left" Margin="421,306,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SubmitCommand}"/>
 
                 </Grid>
             </TabItem>
             <TabItem Header="Guest Tracker">
                 <Grid>
                     <DataGrid x:Name="dataGrid"  IsReadOnly="False" 
-                      ItemsSource="{Binding GuestList}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="200" 
-                      Margin="10,40,0,0" VerticalAlignment="Top" Width="650" CanUserAddRows="False">
+                      ItemsSource="{Binding GuestList}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="500" 
+                      Margin="0,40,0,0" VerticalAlignment="Top" Width="990" CanUserAddRows="False"
+                      SelectedItem="{Binding SelectedGuestRecord}">
                         <DataGrid.Columns>
                             <DataGridTextColumn IsReadOnly="True" Header="First Name" Width="*" Binding="{Binding FirstName}"/>
                             <DataGridTextColumn  IsReadOnly="True" Header="Last Name" Width="*" Binding="{Binding LastName}"/>
                             <DataGridTextColumn   IsReadOnly="True" Header="Contact Person" Width="1.2*" Binding="{Binding ContactPerson}"/>
-                            <DataGridTextColumn  IsReadOnly="True" Header="IN" Width="1.5*" Binding="{Binding TimeIn}"/>
-                            <DataGridTemplateColumn Header="OUT" Width="1.5*">
+                            <DataGridTextColumn  IsReadOnly="True" Header="IN" Width=".5*" Binding="{Binding TimeIn}"/>
+                            <DataGridTemplateColumn Header="OUT" Width=".5*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding TimeOut}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
                                         <TextBox Text="{Binding TimeOut}" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn  IsReadOnly="True" Header="Purpose" Width="2*" Binding="{Binding Purpose}"/>
+                            <DataGridTemplateColumn Header="ID" Width=".5*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding IdNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding IdNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn  IsReadOnly="True" Header="Purpose" Width="2.5*" Binding="{Binding Purpose}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="button1" Content="Update Guest List" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="121" Command="{Binding UpdateGuestsCommand}"/>
+                    <Button x:Name="button1" Content="Update Guest List" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="196" Command="{Binding UpdateGuestsCommand}"/>
                 </Grid>
             </TabItem>
         </TabControl>
