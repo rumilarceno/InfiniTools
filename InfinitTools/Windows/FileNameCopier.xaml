@@ -21,6 +21,7 @@
             <Button x:Name="deleteFileExtensionButton" Content="Delete" HorizontalAlignment="Left" Margin="400,136,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RemoveExtensionCommand}"/>
             <Label x:Name="label" Content="Extension list" HorizontalAlignment="Left" Margin="161,105,0,0" VerticalAlignment="Top"/>
             <CheckBox x:Name="includeChildFoldersCheckBox" Content="Include child folder documents" HorizontalAlignment="Left" Margin="161,76,0,0" VerticalAlignment="Top" IsChecked="{Binding IncludeChildFolder}"/>
+            <CheckBox x:Name="checkBox" Content="Include document extensions" HorizontalAlignment="Left" Margin="161,56,0,0" VerticalAlignment="Top" IsChecked="{Binding IncludeExtensions}"/>
         </Grid>
     </Grid>
 </Window>

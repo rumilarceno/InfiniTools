@@ -18,6 +18,8 @@ namespace InfinitTools.ViewModels
         private const int HALF_DAY_MINUTES = 1200;
         private ITimeTrackerRepository _timeTrackerRepository = null;
         private Employee _employee = null;
+        private const string STOP = "Stop";
+        private const string START = "Start";
 
         public TimeTrackerViewModel(ITimeTrackerRepository timeTrackerRepository, Employee employee)
         {
@@ -83,6 +85,29 @@ namespace InfinitTools.ViewModels
             get
             {
                 return RecordedList.Count;
+            }
+        }
+
+        private ICommand _autoStartCommand = null;
+        public ICommand AutoStartCommand
+        {
+            get
+            {
+                return _autoStartCommand = _autoStartCommand ?? new CommandHandler(OnAutoStartCommandCommandHandler, true);
+            }
+        }
+
+        private void OnAutoStartCommandCommandHandler()
+        {
+            if (!AutoStartText.Equals(STOP))
+            {
+                StartTimeValue = GetTimeNowString();
+                AutoStartText = STOP;
+            }
+            else
+            {
+                EndTimeValue = GetTimeNowString();
+                AutoStartText = START;
             }
         }
 
@@ -183,6 +208,20 @@ namespace InfinitTools.ViewModels
             set
             {
                 _startTimeValue = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _autoStartText = START;
+        public string AutoStartText
+        {
+            get
+            {
+                return _autoStartText;
+            }
+            set
+            {
+                _autoStartText = value;
                 OnPropertyChanged();
             }
         }
@@ -313,6 +352,17 @@ namespace InfinitTools.ViewModels
 
             var meriDian = isPM ? "PM" : "AM";
             return $"{hour.ToString().PadLeft(2)}:{remainingMinutes.ToString("00")} {meriDian}";
+        }
+
+        private string GetTimeNowString()
+        {
+            var timeOfDaySeconds = DateTime.Now.TimeOfDay.TotalMinutes;
+            var hours = (int)(timeOfDaySeconds / 60);
+            string hoursStr = hours.ToString("00");
+            var remainingMinutes = timeOfDaySeconds % 60;
+            string remainingMinutesStr = remainingMinutes.ToString("00");
+
+            return hoursStr + remainingMinutesStr;
         }
 
         //private int ParseTimeToMinutes(string dayInMinutes)

@@ -78,6 +78,20 @@ namespace InfinitTools.ViewModels
             }
         }
 
+        private bool _includeExtensions = false;
+        public bool IncludeExtensions
+        {
+            get
+            {
+                return _includeExtensions;
+            }
+            set
+            {
+                _includeExtensions = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string ComboBoxText { get; set; }
 
         private ICommand _addExtensionCommand;
@@ -88,6 +102,8 @@ namespace InfinitTools.ViewModels
                 return _addExtensionCommand = _addExtensionCommand ?? new CommandHandler(OnAddExtension, true);
             }
         }
+
+        
 
         private ICommand _removeExtensionCommand;
         public ICommand RemoveExtensionCommand

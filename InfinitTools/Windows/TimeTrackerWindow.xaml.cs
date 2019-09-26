@@ -18,6 +18,7 @@ namespace InfinitTools.Windows
             emp.ID = 4;
             emp.Project = new Project();
             emp.Project.ID = 1;
+
             timeTrackerViewModel = new TimeTrackerViewModel(new TimeTrackerRepository(), emp);
             DataContext = timeTrackerViewModel;
         }
