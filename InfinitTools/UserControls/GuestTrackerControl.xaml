@@ -28,7 +28,13 @@
                     <DataGrid x:Name="dataGrid"  IsReadOnly="False" 
                       ItemsSource="{Binding GuestList}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="500" 
                       Margin="0,40,0,0" VerticalAlignment="Top" Width="990" CanUserAddRows="False"
-                      SelectedItem="{Binding SelectedGuestRecord}">
+                      SelectedItem="{Binding SelectedGuestRecord}" AlternatingRowBackground="LightBlue" BorderThickness="1" GridLinesVisibility="Vertical">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Background" Value="LightGray" />
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn IsReadOnly="True" Header="First Name" Width="*" Binding="{Binding FirstName}"/>
                             <DataGridTextColumn  IsReadOnly="True" Header="Last Name" Width="*" Binding="{Binding LastName}"/>
@@ -37,24 +43,29 @@
                             <DataGridTemplateColumn Header="OUT" Width=".5*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding TimeOut}" />
+
+                                        <TextBlock Text="{Binding TimeOut, Mode=TwoWay}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding TimeOut}" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}" />
+                                        <Grid FocusManager.FocusedElement="{Binding ElementName=timeout}">
+                                            <TextBox x:Uid="timeout" Name="timeout" Text="{Binding TimeOut, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" PreviewLostKeyboardFocus="Timeout_PreviewLostKeyboardFocus" />
+                                        </Grid>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="ID" Width=".5*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding IdNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBlock Text="{Binding IdNumber, Mode=TwoWay}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding IdNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}" />
+                                        <Grid FocusManager.FocusedElement="{Binding ElementName=idnumber}">
+                                            <TextBox x:Uid="idnumber" Name="idnumber" Text="{Binding IdNumber, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" PreviewLostKeyboardFocus="Idnumber_PreviewLostKeyboardFocus"  />
+                                        </Grid>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>

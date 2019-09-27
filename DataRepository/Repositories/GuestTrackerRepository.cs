@@ -44,6 +44,7 @@ namespace DataRepository.Repositories
             dbGuest.Purpose = guest.Purpose;
             dbGuest.TimeIn = guest.TimeIn;
             dbGuest.TimeOut = guest.TimeOut;
+            dbGuest.IdNumber = guest.IdNumber;
             _dbContext.SaveChanges();
             return 1;
         }

@@ -21,18 +21,24 @@
             <ComboBox x:Name="taskCodeComboBox" IsEditable="True"  Height="24" ItemsSource="{Binding TaskList}" Text="{Binding TaskName}" HorizontalAlignment="Left" Margin="0,62,0,0" VerticalAlignment="Top" Width="120"/>
             <TextBox x:Name="startTimeTextBox" HorizontalAlignment="Left" Height="24" Margin="245,62,0,0" TextWrapping="Wrap" Text="{Binding StartTimeValue}" VerticalAlignment="Top" Width="120" />
             <TextBox x:Name="endTimeTextBox" HorizontalAlignment="Left" Height="24" Margin="393,62,0,0" TextWrapping="Wrap" Text="{Binding EndTimeValue}" VerticalAlignment="Top" Width="120"/>
-            <Button x:Name="submitTimeButtom" Command="{Binding SubmitTaskTimeCommand}" Content="Submit" HorizontalAlignment="Left" Margin="556,62,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
-            <TextBox x:Name="commentsTextBox" HorizontalAlignment="Left" Height="107" Margin="0,105,0,0" TextWrapping="Wrap" Text="{Binding Comments}" VerticalAlignment="Top" Width="537" />
+            <Button x:Name="submitTimeButtom" Command="{Binding SubmitTaskTimeCommand}" Content="Submit" HorizontalAlignment="Left" Margin="571,128,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
+            <TextBox x:Name="commentsTextBox" HorizontalAlignment="Left" Height="106" Margin="0,128,0,0" TextWrapping="Wrap" Text="{Binding Comments}" VerticalAlignment="Top" Width="537" />
             <Label x:Name="label" Content="Task Name" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy" Content="Start" HorizontalAlignment="Left" Margin="255,26,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy1" Content="End" HorizontalAlignment="Left" Margin="403,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.305,-1.219"/>
-            <Label x:Name="label_Copy2" Content="Comments" HorizontalAlignment="Left" Margin="0,226,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy2" Content="Comments" HorizontalAlignment="Left" Margin="0,102,0,0" VerticalAlignment="Top"/>
             <Button x:Name="button" Content="{Binding AutoStartText}" Command="{Binding AutoStartCommand}" HorizontalAlignment="Left" Margin="145,62,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
         </Grid>
         <Grid Height="200" Grid.Row="1">
             <DataGrid x:Name="dataGrid" Visibility="{Binding IsDataGridVisible, Converter={StaticResource countToVisibilityConverter}}" IsReadOnly="True" 
                       ItemsSource="{Binding RecordedList}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="200" 
-                      Margin="10,0,0,0" VerticalAlignment="Top" Width="650">
+                      Margin="10,0,0,0" VerticalAlignment="Top" Width="650" AlternatingRowBackground="LightBlue">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Background" Value="LightGray" />
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Task" Width="*" Binding="{Binding Task}"/>
                     <DataGridTextColumn Header="Start" Width="0.5*" Binding="{Binding StartTimeRec}"/>

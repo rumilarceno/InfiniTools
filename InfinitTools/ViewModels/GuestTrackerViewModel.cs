@@ -51,8 +51,28 @@ namespace InfinitTools.ViewModels
             }
             set
             {
-                _timeOut = value;
-                OnPropertyChanged();
+                if (!_timeOut.Equals(value))
+                {
+                    _timeOut = value;
+
+                    if (!String.IsNullOrEmpty(_timeOut))
+                    {
+                        Guest guest = new Guest()
+                        {
+                            TimeIn = GetDateTimeFromStrHour(SelectedGuestRecord.TimeIn).Value,
+                            TimeOut = GetDateTimeFromStrHour(_timeOut),
+                            Purpose = SelectedGuestRecord.Purpose,
+                            ContactPerson = SelectedGuestRecord.ContactPerson,
+                            FirstName = SelectedGuestRecord.FirstName,
+                            LastName = SelectedGuestRecord.LastName,
+                            IdNumber = SelectedGuestRecord.IdNumber,
+                            ID = SelectedGuestRecord.ID
+                        };
+                        _guestTrackerRepository.UpdateGuest(guest);
+
+                    }
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -79,7 +99,8 @@ namespace InfinitTools.ViewModels
                             ContactPerson = SelectedGuestRecord.ContactPerson,
                             FirstName = SelectedGuestRecord.FirstName,
                             LastName = SelectedGuestRecord.LastName,
-                            IdNumber = SelectedGuestRecord.IdNumber
+                            IdNumber = _idNumber,
+                            ID = SelectedGuestRecord.ID
                         };
                         _guestTrackerRepository.UpdateGuest(guest);
                     }
@@ -194,6 +215,7 @@ namespace InfinitTools.ViewModels
 
         private void OnUpdateGuestsCommandHandler()
         {
+            GuestList.Clear();
             GuestList = ConvertGuestRecords(_guestTrackerRepository.GetGuests(DateTime.Now));
         }
 
@@ -207,11 +229,12 @@ namespace InfinitTools.ViewModels
                 {
                     FirstName = guest.FirstName,
                     LastName = guest.LastName,
-                    Purpose = guest.FirstName,
+                    Purpose = guest.Purpose,
                     ContactPerson = guest.ContactPerson,
                     IdNumber = guest.IdNumber,
                     TimeIn = guest.TimeIn.ToString("HHmm"),
-                    TimeOut = guest.TimeOut.HasValue ? guest.TimeIn.ToString("HHmm") : string.Empty,
+                    TimeOut = guest.TimeOut.HasValue ? guest.TimeOut.Value.ToString("HHmm") : string.Empty,
+                    ID = guest.ID
                 };
 
                 guestRecords.Add(guestRecord);

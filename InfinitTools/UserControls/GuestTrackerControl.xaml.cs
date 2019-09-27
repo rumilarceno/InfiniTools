@@ -1,19 +1,7 @@
 ﻿using DataRepository.Repositories;
 using InfinitTools.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace InfinitTools.UserControls
 {
@@ -33,6 +21,32 @@ namespace InfinitTools.UserControls
         private void IdNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             guestTrackerViewModel.IdNumber = ((TextBlock)sender).Text;
+        }
+
+        private void Timeout_PreviewLostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            var tb = sender as TextBox;
+            if (tb != null)
+            {
+                var text = tb.Text;
+                if (!String.IsNullOrEmpty(text))
+                {
+                    guestTrackerViewModel.TimeOut = text;
+                }
+            }
+        }
+
+        private void Idnumber_PreviewLostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            var tb = sender as TextBox;
+            if (tb != null)
+            {
+                var text = tb.Text;
+                if (!String.IsNullOrEmpty(text))
+                {
+                    guestTrackerViewModel.IdNumber = text;
+                }
+            }
         }
     }
 }
