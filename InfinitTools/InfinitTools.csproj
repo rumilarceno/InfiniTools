@@ -93,12 +93,6 @@
     <Compile Include="ViewModels\GuestTrackerViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\TimeTrackerViewModel.cs" />
-    <Compile Include="Windows\FileNameCopier.xaml.cs">
-      <DependentUpon>FileNameCopier.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\TimeTrackerWindow.xaml.cs">
-      <DependentUpon>TimeTrackerWindow.xaml</DependentUpon>
-    </Compile>
     <Page Include="Pages\PortalPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -119,10 +113,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\FileNameCopier.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -135,10 +125,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\TimeTrackerWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
