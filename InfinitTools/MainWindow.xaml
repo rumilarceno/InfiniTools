@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen">
 
     <Grid>
-        <Label x:Name="label1" Content="InfiniTools" HorizontalAlignment="right" Margin="0,0,40,0" VerticalAlignment="Top" FontSize="40"/>
+        <Label x:Name="label1" Content="INFINITOOLS" HorizontalAlignment="right" Margin="0,0,40,0" VerticalAlignment="Top" FontSize="40" FontFamily="Arial"/>
         <Frame Source="Pages/PortalPage.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
